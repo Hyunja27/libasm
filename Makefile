@@ -14,10 +14,10 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		main.c)
 
 ASM_FILE = $(addprefix $(SRC_DIR)/, \
-		test.s)
+		ft_strlen.s)
 
 ASM_OBJ = $(addprefix $(SRC_DIR)/, \
-		test.o)
+		ft_strlen.o)
 
 GREEN = \033[32m
 PURPLE = \033[35m
@@ -33,15 +33,15 @@ all :$(NAME)
 $(NAME) :
 	@echo "${PURPLE}[${RED} Makefile${PURPLE} :starting.. ]"
 	@echo "${PURPLE}->making ASM.o .."
-	$(NASM) $(NASM_FLAG) $(ASM_FILE)
+	@($(NASM) $(NASM_FLAG) $(ASM_FILE))
 	@echo "${PURPLE}->resting.. drinking some coffee... hell asm.."
-	$(CC) $(GCC_FLAG) $(SRC) $(ASM_OBJ) -o libasm
+	@($(CC) $(GCC_FLAG) $(SRC) $(ASM_OBJ) -o libasm)
 	@echo "${MINT}making Done."
 
 clean :
 	@echo "${PURPLE}[${RED} cleaning ${PURPLE} : erase objects file.]"
-	@echo "${PURPLE}->kill every objects, include libft objects.."
-	$(RM) $(ASM_OBJ)
+	@echo "${PURPLE}->kill every objects.."
+	@($(RM) $(ASM_OBJ))
 	@echo "${PURPLE}->clearing dead bodys..."
 	@echo "${MINT}cleaning Done."
 
@@ -50,3 +50,10 @@ fclean : clean
 	@echo "${PURPLE}->kill all files... bye bye!"
 	@($(RM) $(RMFLAGS) $(NAME))
 	@echo "${MINT}fcleaning Done."
+
+re : fclean
+	@make
+
+test : all
+	@echo "${MINT}->[Progam Test starting]"
+	@./libasm

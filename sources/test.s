@@ -10,6 +10,4 @@ _hello:
 	mov rax, 0x2000001
 	mov rdi, 0
 	syscall
-
-spark db "Hello World"
-	
+	spark db "Hello World"
