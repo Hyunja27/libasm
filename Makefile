@@ -1,8 +1,9 @@
-NAME = libasm
+NAME = libasm.a
 
 NASM = nasm
 CC = gcc
 GCC_FLAG = -Wall -Wextra -Werror
+AR = ar rc
 NASM_FLAG = -f macho64
 DEBUG_FLAG = -g3
 RM = rm
@@ -14,10 +15,10 @@ SRC = $(addprefix $(SRC_DIR)/, \
 		main.c)
 
 ASM_FILE = $(addprefix $(SRC_DIR)/, \
-		ft_strlen.s)
+		ft_strlen.s\
+		ft_strcpy.s)
 
-ASM_OBJ = $(addprefix $(SRC_DIR)/, \
-		ft_strlen.o)
+ASM_OBJ = $(addprefix $(SRC_DIR)/, $(notdir $(ASM_FILE:.s=.o)))
 
 GREEN = \033[32m
 PURPLE = \033[35m
@@ -30,13 +31,15 @@ NO_COLOR = \e[0m
 
 all :$(NAME)
 
-$(NAME) :
+$(NAME) : $(ASM_OBJ)
 	@echo "${PURPLE}[${RED} Makefile${PURPLE} :starting.. ]"
 	@echo "${PURPLE}->making ASM.o .."
-	@($(NASM) $(NASM_FLAG) $(ASM_FILE))
+	@$(AR) $(NAME) $(ASM_OBJ)
 	@echo "${PURPLE}->resting.. drinking some coffee... hell asm.."
-	@($(CC) $(GCC_FLAG) $(SRC) $(ASM_OBJ) -o libasm)
 	@echo "${MINT}making Done."
+
+$(SRC_DIR)/%.o : $(SRC_DIR)/%.s
+	$(NASM) $(NASM_FLAG) $< -o $@
 
 clean :
 	@echo "${PURPLE}[${RED} cleaning ${PURPLE} : erase objects file.]"
@@ -54,6 +57,13 @@ fclean : clean
 re : fclean
 	@make
 
-test : all
-	@echo "${MINT}->[Progam Test starting]"
-	@./libasm
+test : $(NAME)
+	@echo "${{BLINK}${MINT}->[Progam Test starting]"
+	@echo "${MINT}"
+	@echo "${RED}===========================================${MINT}"
+	@echo "${MINT}"
+	@$(CC) $(GCC_FLAG) $(SRC) -L./ -lasm
+	@./a.out
+	@echo "${MINT}"
+	@echo "${MINT}"
+	@echo "${RED}===========================================${MINT}"
