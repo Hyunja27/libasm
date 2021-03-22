@@ -3,7 +3,7 @@ section .text
 
 _ft_strcpy:
 	mov r8, 0
-	; mov rax, rdi
+	mov rax, rdi
 	jmp _loop
 
 _loop:
@@ -15,6 +15,5 @@ _loop:
 	jmp _loop
 
 _end:
-	mov rax, [rdi + 1]
 	ret
 
