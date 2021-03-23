@@ -18,7 +18,9 @@ ASM_FILE = $(addprefix $(SRC_DIR)/, \
 		ft_strlen.s\
 		ft_strcpy.s\
 		ft_strcmp.s\
-		ft_write.s)
+		ft_write.s\
+		ft_read.s\
+		ft_strdup.s)
 
 ASM_OBJ = $(addprefix $(SRC_DIR)/, $(notdir $(ASM_FILE:.s=.o)))
 

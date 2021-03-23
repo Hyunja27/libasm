@@ -2,6 +2,9 @@ section .text
 	global _ft_strcpy
 
 _ft_strcpy:
+	push r8
+	push rdi
+	push rsi
 	mov r8, 0
 	mov rax, rdi
 	jmp _loop
@@ -15,5 +18,8 @@ _loop:
 	jmp _loop
 
 _end:
+	pop rsi
+	pop rdi
+	pop r8
 	ret
 

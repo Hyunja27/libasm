@@ -8,7 +8,9 @@ _ft_strcmp:
 
 _loop:
 	cmp byte [rdi + r8], 0
-	je	_end
+	je	_1null
+	cmp byte [rsi + r8], 0
+	je	_2null
 	mov dl, byte [rdi + r8]
 	cmp dl, byte [rsi + r8]
 	ja	_1big
@@ -23,6 +25,16 @@ _1big:
 _2big:
 	mov rax, -1
 	ret
+
+_1null:
+	cmp byte [rsi + r8], 0
+	je _end
+	jmp _2big
+
+_2null:
+	cmp byte [rdi + r8], 0
+	je _end
+	jmp _1big
 	
 _end:
 	ret
