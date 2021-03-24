@@ -23,7 +23,8 @@ ASM_FILE = $(addprefix $(SRC_DIR)/, \
 		ft_read.s\
 		ft_strdup.s\
 		ft_list_push_front.s\
-		ft_list_size.s)
+		ft_list_size.s\
+		ft_list_remove_if.s)
 
 # BNS_FILE = $(addprefix $(BNS_DIR)/, \
 # 		ft_strlen.s\
@@ -32,8 +33,6 @@ ASM_FILE = $(addprefix $(SRC_DIR)/, \
 # 		ft_write.s\
 # 		ft_read.s\
 # 		ft_strdup.s)
-	
-
 
 ASM_OBJ = $(addprefix $(SRC_DIR)/, $(notdir $(ASM_FILE:.s=.o)))
 

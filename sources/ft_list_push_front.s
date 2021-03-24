@@ -16,7 +16,7 @@ _make:
 	mov rdi, 16
 	call _malloc
 	cmp rax, 0
-	je _err
+	je end
 	pop rsi
 	pop rdi
 	mov [rax], rsi
@@ -25,10 +25,5 @@ _make:
 	mov [rdi], rax
 	pop rcx
 
-_err:
-	push rax 
-	call ___error
-	pop	rdx
-	mov [rax], rdx
-	mov rax, -1
+end:
 	ret
