@@ -10,6 +10,7 @@ RM = rm
 RMFLAGS = -f
 
 SRC_DIR = ./sources
+BNS_DIR = ./bonus
 
 SRC = $(addprefix $(SRC_DIR)/, \
 		main.c)
@@ -20,7 +21,19 @@ ASM_FILE = $(addprefix $(SRC_DIR)/, \
 		ft_strcmp.s\
 		ft_write.s\
 		ft_read.s\
-		ft_strdup.s)
+		ft_strdup.s\
+		ft_list_push_front.s\
+		ft_list_size.s)
+
+# BNS_FILE = $(addprefix $(BNS_DIR)/, \
+# 		ft_strlen.s\
+# 		ft_strcpy.s\
+# 		ft_strcmp.s\
+# 		ft_write.s\
+# 		ft_read.s\
+# 		ft_strdup.s)
+	
+
 
 ASM_OBJ = $(addprefix $(SRC_DIR)/, $(notdir $(ASM_FILE:.s=.o)))
 

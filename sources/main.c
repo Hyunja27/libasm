@@ -3,14 +3,27 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+typedef struct	s_list
+{
+	void *data;
+	struct s_list *next;
+} 				t_list;
+
 size_t	ft_strlen(char *d);
 char	*ft_strcpy(char *d, char *s);
 int		ft_strcmp(char *s1, char *s2);
 ssize_t	ft_write(int fd, char *buf, int size);
 ssize_t	ft_read(int fd, char *buf, int size);
 char	*ft_strdup(char *s);
+void    ft_list_push_front(t_list **list, void *data);
+int    ft_list_size(t_list *list);
+
 int main(void)
 {
+	t_list *head;
+    t_list *temp;
+    head = 0;
+
 	printf("*ft_strlen test\n");
 	printf("ft_strlen : %lu\n", ft_strlen(""));
 	printf("ft_strlen : %lu\n", ft_strlen("01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"));
@@ -54,5 +67,20 @@ int main(void)
 	mal = ft_strdup("01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789");
 	printf("%s\n", mal);
 	free(mal);
+
+	
+    ft_list_push_front(&head, ft_strdup("123"));
+    ft_list_push_front(&head, ft_strdup("456"));
+    ft_list_push_front(&head, ft_strdup("789"));
+    temp = head;
+    while (temp)
+    {
+        printf("[%s]", (char *)temp->data);
+        if (temp->next)
+            printf(" -> ");
+        temp = temp->next;
+    }
+	printf("\n\nlist size : %d\n", ft_list_size(head));
+
 	return (0);
 }
