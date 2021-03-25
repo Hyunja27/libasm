@@ -9,6 +9,11 @@ typedef struct	s_list
 	struct s_list *next;
 } 				t_list;
 
+static int	cmp(int *a, int *b)
+{
+	return (*a - *b);
+}
+
 size_t	ft_strlen(char *d);
 char	*ft_strcpy(char *d, char *s);
 int		ft_strcmp(char *s1, char *s2);
@@ -17,6 +22,59 @@ ssize_t	ft_read(int fd, char *buf, int size);
 char	*ft_strdup(char *s);
 void    ft_list_push_front(t_list **list, void *data);
 int    ft_list_size(t_list *list);
+void	ft_list_sort(t_list **begin_list, int (*cmp)());
+
+static void	do_test_check(t_list *list)
+{
+	int		i;
+
+	i = 0;
+	while (++i < 10 && list)
+	{
+		if (*(int *)list->data != i)
+		{
+			printf("KO: diff expect %d, ft %d\n", i, *(int *)list->data);
+			exit(1);
+		}
+		list = list->next;
+	}
+	if (list && i != 10)
+	{
+		printf("KO: diff end list %p, i %d\n", list, i);
+		exit(1);
+	}
+}
+
+static void	do_test(void)
+{
+	int		i;
+	int		*n;
+	t_list	*list;
+
+	list = malloc(sizeof(t_list));
+	list->data = malloc(sizeof(int));
+	*(int *)list->data = 1;
+	list->next = 0;
+	i = 1;
+	while (++i < 10)
+	{
+		n = malloc(sizeof(int));
+		*n = i;
+		ft_list_push_front(&list, n);
+	}
+	ft_list_sort(&list, cmp);
+	do_test_check(list);
+	// ft_lstclear(list, free);
+}
+
+void	ft_list_sort_test(void)
+{
+	printf("===================================================\n");
+	printf("testing ft_list_sort();\n");
+	do_test();
+	printf("SUCCESS!\n");
+}
+
 
 int main(void)
 {
@@ -81,6 +139,8 @@ int main(void)
         temp = temp->next;
     }
 	printf("\n\nlist size : %d\n", ft_list_size(head));
+
+	ft_list_sort_test();
 
 	return (0);
 }

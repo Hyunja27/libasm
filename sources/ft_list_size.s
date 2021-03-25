@@ -1,7 +1,6 @@
 section .text
 	global _ft_list_size
 	extern _malloc
-	extern ___error
 
 ; rdi:**list , rsi:*data
 ; sizeof(t_list) = 16

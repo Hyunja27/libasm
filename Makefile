@@ -24,7 +24,8 @@ ASM_FILE = $(addprefix $(SRC_DIR)/, \
 		ft_strdup.s\
 		ft_list_push_front.s\
 		ft_list_size.s\
-		ft_list_remove_if.s)
+		ft_list_remove_if.s\
+		ft_list_sort.s)
 
 # BNS_FILE = $(addprefix $(BNS_DIR)/, \
 # 		ft_strlen.s\
