@@ -13,10 +13,26 @@ section .text
 ; rcx = free_fct
 
 _ft_list_remove_if:
-  push r9
   push r8
   mov r8, [rdi]
   jmp _loop
+
+_remove:
+  push rdi
+  push r8
+  mov rdi, [r8]
+  call rcx
+  pop r8
+  pop rdi
+  mov rax, [r8 + 8]
+  mov [rdi], rax
+  push rdi
+  push r8
+  mov rdi, r8
+  call _free
+  pop r8
+  pop rdi
+  mov r8, [rdi]
 
 _loop:
   cmp r8, 0
@@ -32,25 +48,24 @@ _loop:
   pop r8
   pop rdi
   cmp rax, 0
-  jmp _remove
+  je _remove
   mov rdi, r8
   jmp _start
 
-_remove:
-  push r8
-  push rdi
-  mov rdi, [r8]
-  call rcx
-  pop rdi
-  pop r8
-  mov rax, [r8 + 8]
-  mov [rdi], rax
-  push r8
-  push rdi
+_move:
+  mov   rax, [r8 + 8]
+  mov   [rdi + 8], rax
+  push  rdi
+  push  rdx
+  push  r8
+  mov   rdi, [r8]
+  call  rcx
+  pop   r8
+  mov   rdi, r8
   call _free
+  pop rdx
   pop rdi
-  pop r8
-  mov r8, [rdi]  
+  mov r8, [rdi + 8]
 
 _start:
   cmp r8, 0
@@ -68,27 +83,11 @@ _start:
   cmp   rax, 0
   je    _move
   mov   rdi, r8
-  mov   rax, [r8+8]
+  mov   rax, [r8 + 8]
   mov   r8, rax
   jmp   _start
 
-_move:
-  mov   rax, [r8+8]
-  mov   [rdi+8], rax
-  push  rdi
-  push  rdx
-  push  r8
-  mov   rdi, [r8]
-  call  rcx
-  pop   r8
-  mov   rdi, r8
-  call _free
-  pop rdx
-  pop rdi
-  mov r8, [rdi+8]
-
 _end:
   pop r8
-  pop r9
   xor rax, rax
   ret

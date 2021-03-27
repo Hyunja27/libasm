@@ -42,6 +42,8 @@ _a_check:
 	cmp r8, 0
 	je _end
 	mov r9, [r8 + 8]
+	cmp r9, 0
+	je _end
 	jmp _cmp
 
 _end:
